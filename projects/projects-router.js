@@ -9,6 +9,14 @@ const router = express.Router({
 router.get('/', (req, res) => {
     Projects.getProjects()
         .then(projects => {
+            projects.forEach(item => {
+                if(item.completed){
+                    item.completed = true
+                } else if(!item.completed){
+                    item.completed = false
+                }
+            })
+            
             res.status(200).json(projects)
         })
         .catch(err => {
@@ -31,6 +39,13 @@ router.get('/resources', (req, res) => {
 router.get('/tasks', (req, res) => {
     Projects.getTasks()
         .then(tasks => {
+            tasks.forEach(item => {
+                if(item.completed){
+                    item.completed = true
+                } else if (!item.completed){
+                    item.completed = false
+                }
+            })
             res.status(200).json(tasks)
         })
         .catch(err => {
@@ -43,7 +58,9 @@ router.post('/', (req, res) => {
     const projectData = req.body;
     Projects.addProject(projectData)
         .then(project => {
+            console.log(project.id)
             res.status(201).json(project)
+            
         })
         .catch(err => {
             console.log(err)

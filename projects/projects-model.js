@@ -16,6 +16,8 @@ function getTasks() {
 
 async function addProject(newProject) {
     const addedId = await db('projects').insert(newProject)
+    // const something = db('projects').where('id', addedId[0]).first()
+    // return something.id
     return db('projects').where('id', addedId[0]).first()
 }
 
