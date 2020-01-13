@@ -84,6 +84,12 @@ router.post('/tasks', (req, res) => {
     const taskData = req.body;
     Projects.addTask(taskData)
         .then(task => {
+            if(task.completed){
+                task.completed = true
+            } else if(!task.completed){
+                task.completed = false
+            }
+            console.log(task)
             res.status(201).json(task)
         })
         .catch(err => {
